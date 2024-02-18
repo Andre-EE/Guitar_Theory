@@ -16,17 +16,23 @@ def main():
     # print(notes['Eb4'].sharp)
     # print(notes['D#4'].frequency)
 
-    # scales
+    # # scales
+    # print(scales['Eb','major'])
+    # print(scales['D#','ionian'])
+    # print('')
+
+    # print(scales['A','major_pentatonic'].notes)
+    # print(', '.join(scales[('A', 'major_pentatonic')].flat_notes))
+    # print('')
+
+    # for note in notes.chromatic_scale:
+    #     print(scales[note,'mixolydian'])
+    # print('')
+
+    # for mode in scales.modes:
+    #     print(scales['C', mode])
+
     
-    print(scales['Eb','major'])
-    print(scales['D#','major'])
-
-    print(scales['A','ionian'].notes)
-    print(', '.join(scales[('A', 'ionian')].flat_notes))
-    print(', '.join(scales[('A', 'ionian')].sharp_notes))
-
-    for note in notes.chromatic_scale:
-        print(scales[note,'mixolydian'])
 
 if __name__ == "__main__":
     main()

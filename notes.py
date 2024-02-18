@@ -90,7 +90,12 @@ class Notes(CollectionHelper):
 
     def get_note(self, name: str):
         return self[name]
-       
+
+    def __getitem__(self, dict_key):
+        item = self._instances.get(dict_key, None)
+        item.last_access_key(dict_key)
+        return item
+
     def get_note_by_index(self, index: int):
         for note in self._instances.values():
             if note.index == index:

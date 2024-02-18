@@ -81,7 +81,7 @@ class Scale(Helper):
         else:
            alt_key_str  = '    '
            
-        return f"{self.key: <2} {alt_key_str} {self.mode:<16}: [{notes_str}]   [({alt_notes_str})]"
+        return f"{self.key: <2} {alt_key_str} {self.mode:<16}: [{notes_str:<26}]   [({alt_notes_str:<26})]"
 
 class Scales(CollectionHelper):
     def __init__(self):
@@ -135,3 +135,8 @@ class Scales(CollectionHelper):
                     
     def get_scale(self, scale_dict_key: tuple):
         return self[scale_dict_key]
+    
+    def __getitem__(self, dict_key):
+        item = self._instances.get(dict_key, None)
+        item.last_access_key(dict_key)
+        return item

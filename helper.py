@@ -4,11 +4,6 @@ class CollectionHelper:
 
         self.chromatic_scale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
-    def __getitem__(self, dict_key):
-        item = self._instances.get(dict_key, None)
-        item.last_access_key(dict_key)
-        return item
-
 class Helper:
     def __init__(self, tonic: str):
 
