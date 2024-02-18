@@ -1,5 +1,3 @@
-from math import exp
-
 class CollectionHelper:
     def __init__(self):
         self._instances     = {}
@@ -10,7 +8,9 @@ class Helper:
 
         self._tonic         = tonic
         self._alt_tonic     = None
-        self._last_dict_key = None
+        
+        self._flat          = None
+        self._sharp         = None
 
         self.chromatic_scale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
@@ -20,6 +20,8 @@ class Helper:
     @tonic.setter
     def tonic(self, value: str):
         self._alt_tonic     = None
+        self._base          = None
+        self._alt_base      = None
         self._tonic         = value
 
     @property
@@ -32,14 +34,20 @@ class Helper:
         return self._alt_tonic
     
     @property
-    def last_dict_key(self):
-        return self._last_dict_key
-    @last_dict_key.setter
-    def last_dict_key(self, value: str):
-        self._last_dict_key = value
-        if ('b' in self._last_dict_key and self.is_sharp()) or \
-            ('#' in self._last_dict_key and self.is_flat()):
-            self.tonic = self.alt_tonic
+    def flat(self):
+        if self._flat is None:
+            if self.is_flat() or self.is_sharp():
+                chromatic_scale_index = self.get_chromatic_scale_index()
+                self._flat = self.chromatic_scale[chromatic_scale_index + 1] + 'b' + self.tonic[2:]
+        return self._flat
+
+    @property
+    def sharp(self):
+        if self._sharp is None:
+            if self.is_flat() or self.is_sharp():
+                chromatic_scale_index = self.get_chromatic_scale_index()
+                self._sharp = self.chromatic_scale[chromatic_scale_index] + self.tonic[2:]
+        return self._sharp 
 
     def is_sharp(self):
         return True if '#' in self.tonic else False
@@ -48,11 +56,14 @@ class Helper:
         return True if 'b' in self.tonic else False
 
     def get_chromatic_scale_index(self):
-        chromatic_scale_index = self.chromatic_scale.index(self.tonic[:1])
+        chromatic_scale_index = self.chromatic_scale.index(self.tonic[0]) #self.tonic[:1]
         if self.is_sharp():
             chromatic_scale_index += 1
         if self.is_flat():
             chromatic_scale_index -= 1
         return chromatic_scale_index
     
-
+    def last_access_key(self, value: str):
+        if ('b' in value and self.is_sharp()) or \
+           ('#' in value and self.is_flat()):
+            self.tonic = self.alt_tonic
