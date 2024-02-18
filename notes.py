@@ -23,11 +23,6 @@ class Note(Helper):
     @property
     def name(self):
         return self.tonic
-    @name.setter
-    def name(self, value: str):
-        self._base          = None
-        self._alt_base      = None
-        self.tonic          = value
 
     @property
     def alt_name(self):
@@ -35,16 +30,12 @@ class Note(Helper):
     
     @property
     def base(self):
-        if self._base is None:
-            self._base = self.tonic[:-1]
-        return self._base
+        return self.name[:-1]
     
     @property
     def alt_base(self):
-        if self._alt_base is None:
-            self._alt_base = self.alt_tonic[:-1]
-        return self._alt_base
-
+        return self.alt_name[:-1]
+    
     @property
     def octave(self):
         if self._octave is None:
@@ -92,47 +83,17 @@ class Notes(CollectionHelper):
         for note in self.chromatic_scale:
             for octave in range(0, 9):
                 note_name = f"{note}{octave}"
-                current_note = Note(name=note_name)
+                current_note = Note(note_name)
                 self._instances[note_name] = current_note
                 if current_note.alt_name is not None:
                     self._instances[current_note.alt_name] = current_note
 
     def get_note(self, name: str):
-        note = self._instances.get(name, None)
-        note.last_access_key(name)
-        return note
+        return self[name]
        
-    def __getitem__(self, name: str):
-        note = self._instances.get(name, None)
-        note.last_access_key(name)
-        return note
-
     def get_note_by_index(self, index: int):
         for note in self._instances.values():
             if note.index == index:
                 return note
         return None
 
-
-notes = Notes()
-
-print(notes.get_note('Eb4'))
-print(notes.get_note('D#4'))
-print(notes['Eb4'])
-print(notes['D#4'])
-print(notes['Eb4'].flat)
-print(notes['Eb4'].sharp)
-print(notes['D#4'].flat)
-print(notes['D#4'].sharp)
-
-print(notes.get_note('A4'))
-print(notes.get_note('B4'))
-print(notes['A4'])
-print(notes['B4'])
-print(notes['A4'].flat)
-print(notes['B4'].sharp)
-
-print(notes.get_note('D#4').index)
-print(notes.get_note('Eb4').base)
-print(notes['D#4'].frequency)
-print(notes['Eb4'].octave)

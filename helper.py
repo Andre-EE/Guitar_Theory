@@ -1,7 +1,13 @@
 class CollectionHelper:
     def __init__(self):
         self._instances     = {}
+
         self.chromatic_scale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+    def __getitem__(self, dict_key):
+        item = self._instances.get(dict_key, None)
+        item.last_access_key(dict_key)
+        return item
 
 class Helper:
     def __init__(self, tonic: str):
@@ -20,8 +26,6 @@ class Helper:
     @tonic.setter
     def tonic(self, value: str):
         self._alt_tonic     = None
-        self._base          = None
-        self._alt_base      = None
         self._tonic         = value
 
     @property
@@ -49,21 +53,30 @@ class Helper:
                 self._sharp = self.chromatic_scale[chromatic_scale_index] + self.tonic[2:]
         return self._sharp 
 
-    def is_sharp(self):
-        return True if '#' in self.tonic else False
+    def is_sharp(self, note: str = None):
+        if note is None:
+            note = self.tonic
+        return True if '#' in note else False
 
-    def is_flat(self):
-        return True if 'b' in self.tonic else False
+    def is_flat(self, note: str = None):
+        if note is None:
+            note = self.tonic
+        return True if 'b' in note else False
 
-    def get_chromatic_scale_index(self):
-        chromatic_scale_index = self.chromatic_scale.index(self.tonic[0]) #self.tonic[:1]
-        if self.is_sharp():
+
+    def get_chromatic_scale_index(self, note = None):
+        if note is None:
+            note = self.tonic
+        chromatic_scale_index = self.chromatic_scale.index(note[0]) #self.tonic[:1]
+        if self.is_sharp(note):
             chromatic_scale_index += 1
-        if self.is_flat():
+        if self.is_flat(note):
             chromatic_scale_index -= 1
         return chromatic_scale_index
-    
+
+
     def last_access_key(self, value: str):
         if ('b' in value and self.is_sharp()) or \
-           ('#' in value and self.is_flat()):
+            ('#' in value and self.is_flat()):
+            print('did that')
             self.tonic = self.alt_tonic
