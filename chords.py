@@ -73,16 +73,6 @@ class Chord(Helper):
             self.notes  = self.alt_notes
             self.tonic  = self.alt_tonic
 
-    # def __str__(self):
-    #     notes_str = ', '.join(self.notes)
-    #     if self.alt_root is not None:
-    #        alt_root_str     = self.alt_root
-    #        alt_notes_str    = ', '.join(self.alt_notes)
-    #     else:
-    #        alt_root_str     = ''
-    #        alt_notes_str    = ''
-    #     return f"{self.root: <2} ({alt_root_str:<2}) {self.quality:<16}: [{notes_str:<25}] [({alt_notes_str:<25})]"
-
     def __str__(self):
         notes_str       = ', '.join([f"{note:<2}" for note in self.notes])
         alt_notes_str   = ', '.join([f"{note:<2}" for note in self.alt_notes])
@@ -149,6 +139,9 @@ class Chords(CollectionHelper):
                     self._instances[chord_alt_dict_key] = current_chord 
 
         self.qualities = list(chord_dictionary_for_root.keys())
+
+    def get_qualities(self):
+        return self.qualities
 
     def get_chord(self, chord_dict_key: tuple):
         return self[chord_dict_key]

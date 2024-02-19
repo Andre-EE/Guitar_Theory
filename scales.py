@@ -1,5 +1,3 @@
-from collections import deque
-
 from helper import Helper
 from helper import CollectionHelper
 
@@ -110,9 +108,7 @@ class Scales(CollectionHelper):
 
     def generate_scale(self, key: str = 'D', mode: str = 'ionian'):
         
-        key_index = self.chromatic_scale.index(key)
-        chromatic_scale_in_key = deque(self.chromatic_scale)
-        chromatic_scale_in_key.rotate(-key_index)
+        chromatic_scale_in_key = self.get_chromatic_scale_in_key(key)
 
         i = 0        
         generated_scale = []

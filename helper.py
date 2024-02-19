@@ -1,8 +1,16 @@
+from collections import deque
+
 class CollectionHelper:
     def __init__(self):
         self._instances     = {}
 
         self.chromatic_scale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+    def get_chromatic_scale_in_key(self, key):
+        key_index = self.chromatic_scale.index(key)
+        chromatic_scale_in_key = deque(self.chromatic_scale)
+        chromatic_scale_in_key.rotate(-key_index)
+        return chromatic_scale_in_key
 
 class Helper:
     def __init__(self, tonic: str):
