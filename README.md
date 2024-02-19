@@ -47,7 +47,7 @@ C# (Db) mixolydian      : [C#, D#, F , F#, G#, A#, B ]   [(Db, Eb, F , Gb, Ab, B
 D       mixolydian      : [D , E , F#, G , A , B , C ]   [(D , E , Gb, G , A , B , C )]
 # etc...
 ```
-Print all scales of a certain key:
+Print scales of a certain key:
 ```
 for mode in scales.modes:
     print(scales['C', mode])
@@ -62,3 +62,50 @@ C       minor_pentatonic: [C , D#, F , G , A#        ]   [(C , Eb, F , G , Bb   
 C       major_blues     : [C , D , D#, E , G , A     ]   [(C , D , Eb, E , G , A     )]
 # etc...
 ```
+## Chords Class
+Print chords:
+```
+print(chords['Eb','major'])
+print(chords['D#','major_7th'])
+
+print(chords['A#','minor'].notes)
+print(', '.join(chords[('A#', 'minor')].flat_notes))
+```
+Result:
+```
+Eb (D#) major           : [Eb, G , Bb    ]   [(D#, G , A#    )]
+D# (Eb) major_7th       : [D#, G , A#, D ]   [(Eb, G , Bb, D )]
+
+['A#', 'C#', 'F']
+Bb, Db, F
+```
+Print all chords of a certain quality:
+```
+for root in notes.chromatic_scale:
+    print(chords[root, 'major'])
+```
+Result:
+```
+C       major           : [C , E , G     ]   [(C , E , G     )]
+C# (Db) major           : [C#, F , G#    ]   [(Db, F , Ab    )]
+D       major           : [D , F#, A     ]   [(D , Gb, A     )]
+# etc...
+```
+Print chords of a certain root:
+```
+for quality in chords.qualities:
+    print(chords['C', quality])
+```
+Result:
+```
+C       major           : [C , E , G     ]   [(C , E , G     )]
+C       minor           : [C , D#, G     ]   [(C , Eb, G     )]
+# etc...
+C       minor_7th       : [C , D#, G , A#]   [(C , Eb, G , Bb)]
+C       dominant_7th    : [C , E , G , A#]   [(C , E , G , Bb)]
+C       sus2            : [C , D , G     ]   [(C , D , G     )]
+# etc...
+```
+
+
+
