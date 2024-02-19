@@ -73,5 +73,4 @@ class Helper:
     def last_access_key(self, value: str):
         if ('b' in value and self.is_sharp()) or \
             ('#' in value and self.is_flat()):
-            print('did that')
             self.tonic = self.alt_tonic

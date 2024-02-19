@@ -72,7 +72,6 @@ class Scale(Helper):
             self.notes  = self.alt_notes
             self.tonic  = self.alt_tonic
 
-
     def __str__(self):
         notes_str       = ', '.join([f"{note:<2}" for note in self.notes])
         alt_notes_str   = ', '.join([f"{note:<2}" for note in self.alt_notes])
