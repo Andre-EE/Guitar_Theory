@@ -2,6 +2,9 @@
 Console music theory app for guitar
 
 ## Notes Class
+<details>
+<summary>Get information on musical notes</summary>
+
 ```
 notes = Notes()
 print(notes['Eb4'])
@@ -18,7 +21,13 @@ Eb4
 D#4
 311
 ```
+</details>
+
 ## Scales Class
+<details>
+<summary>Generate and print scales</summary>
+
+
 Print scales:
 ```
 print(scales['Eb','major'])
@@ -62,7 +71,14 @@ C       minor_pentatonic: [C , D#, F , G , A#        ]   [(C , Eb, F , G , Bb   
 C       major_blues     : [C , D , D#, E , G , A     ]   [(C , D , Eb, E , G , A     )]
 # etc...
 ```
+</details>
+
 ## Chords Class
+
+<details>
+<summary>Generate and print chords</summary>
+
+
 Print chords:
 ```
 print(chords['Eb','major'])
@@ -106,8 +122,14 @@ C       dominant_7th    : [C , E , G , A#]   [(C , E , G , Bb)]
 C       sus2            : [C , D , G     ]   [(C , D , G     )]
 # etc...
 ```
+</details>
 
 ## Chords in Keys Class
+
+<details>
+<summary>Generate and print chords in keys</summary>
+
+
 Print chords in keys:
 ```
 print(chords_in_keys['Eb','major'])
@@ -163,6 +185,59 @@ alt:                    : [C_major_7th, D_minor_7th, E_minor_7th, F_major_7th, G
 key: C_minor_7th        : [C_minor_7th, D_half_diminished, D#_major_7th, F_minor_7th, G_minor_7th, G#_major_7th, A#_dominant_7th]
 alt:                    : [C_minor_7th, D_half_diminished, Eb_major_7th, F_minor_7th, G_minor_7th, Ab_major_7th, Bb_dominant_7th]
 ```
+</details>
 
+## Fretboard Class
+
+<details>
+<summary>Generate fretboard notes</summary>
+
+
+Print fretboard:
+
+```
+print(fretboard)
+
+fretboard.print_all_notes()
+```
+Result:
+```
+E4        F4        F#4       G4        G#4       A4        A#4       B4        C5        C#5       D5        D#5       E5        F5        F#5
+B3        C4        C#4       D4        D#4       E4        F4        F#4       G4        G#4       A4        A#4       B4        C5        C#5
+G3        G#3       A3        A#3       B3        C4        C#4       D4        D#4       E4        F4        F#4       G4        G#4       A4
+D3        D#3       E3        F3        F#3       G3        G#3       A3        A#3       B3        C4        C#4       D4        D#4       E4
+A2        A#2       B2        C3        C#3       D3        D#3       E3        F3        F#3       G3        G#3       A3        A#3       B3
+E2        F2        F#2       G2        G#2       A2        A#2       B2        C3        C#3       D3        D#3       E3        F3        F#3
+```
+
+Print open chord notes only:
+```
+fretboard.print_open_notes()
+```
+Result:
+```
+E4        F4        F#4       G4
+B3        C4        C#4       D4
+G3        G#3       A3        A#3
+D3        D#3       E3        F3
+A2        A#2       B2        C3
+E2        F2        F#2       G2
+```
+
+Get (string, fret) locations for notes:
+```
+for note in notes.chromatic_scale:
+    print(f"{note:<3}: {fretboard.note_directory[note]}")
+```
+
+Result
+```
+C  : [(0, 8), (1, 1), (1, 13), (2, 5), (3, 10), (4, 3), (5, 8)]
+C# : [(0, 9), (1, 2), (1, 14), (2, 6), (3, 11), (4, 4), (5, 9)]
+D  : [(0, 10), (1, 3), (2, 7), (3, 0), (3, 12), (4, 5), (5, 10)]
+# etc...
+```
+
+</details>
 
 
