@@ -5,6 +5,7 @@ from notes          import Notes
 from scales         import Scales
 from chords         import Chords
 from chords_in_keys import Chords_in_Keys
+from fretboard      import Fretboard
 
 def main():
     # Initialize instances of classes from other files
@@ -12,7 +13,17 @@ def main():
     scales = Scales()
     chords = Chords()
     chords_in_keys = Chords_in_Keys()
+    fretboard = Fretboard(notes)
 
+    print(fretboard)
+
+    fretboard.print_all_notes()
+
+    fretboard.print_open_notes()
+
+    for note in notes.chromatic_scale:
+        print(f"{note:<3}: {fretboard.note_directory[note]}")
+        
     # # notes
     # print(notes['Eb4'])
     # print(notes.get_note('D#4'))
@@ -55,24 +66,24 @@ def main():
     #     print(chords['C', quality])
     # print('')
 
-    # chords in keys
-    print(chords_in_keys['Eb','major'])
-    print('')
-    print(chords_in_keys['D#','major_7th'])
-    print('')
+    # # chords in keys
+    # print(chords_in_keys['Eb','major'])
+    # print('')
+    # print(chords_in_keys['D#','major_7th'])
+    # print('')
 
-    print(chords_in_keys['A#','minor'].chords)
-    print([f"{item[0]}_{item[1]}" for item in chords_in_keys[('A#', 'minor')].flat_chords])
-    print('')
+    # print(chords_in_keys['A#','minor'].chords)
+    # print([f"{item[0]}_{item[1]}" for item in chords_in_keys[('A#', 'minor')].flat_chords])
+    # print('')
 
-    for key in notes.chromatic_scale:
-        print(chords_in_keys[key, 'major'])
-        print('')
-    print('')
+    # for key in notes.chromatic_scale:
+    #     print(chords_in_keys[key, 'major'])
+    #     print('')
+    # print('')
 
-    for degree in chords_in_keys.get_degrees():
-        print(chords_in_keys['C', degree])
-        print('')
+    # for degree in chords_in_keys.get_degrees():
+    #     print(chords_in_keys['C', degree])
+    #     print('')
 
 
 if __name__ == "__main__":
