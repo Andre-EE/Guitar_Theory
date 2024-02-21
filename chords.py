@@ -116,7 +116,6 @@ class Chords(CollectionHelper):
 
         chord_dictionary_for_root['major']           = [perfect_unison,  major_3rd,     perfect_5th               ]
         chord_dictionary_for_root['minor']           = [perfect_unison,  minor_3rd,     perfect_5th               ]
-        chord_dictionary_for_root['power']           = [perfect_unison,  major_3rd                                ]
         chord_dictionary_for_root['major_7th']       = [perfect_unison,  major_3rd,     perfect_5th,     major_7th]
         chord_dictionary_for_root['minor_7th']       = [perfect_unison,  minor_3rd,     perfect_5th,     minor_7th]
         chord_dictionary_for_root['dominant_7th']    = [perfect_unison,  major_3rd,     perfect_5th,     minor_7th]

@@ -6,6 +6,7 @@ from scales         import Scales
 from chords         import Chords
 from chords_in_keys import Chords_in_Keys
 from fretboard      import Fretboard
+from voicings       import Voicings
 
 def main():
     # Initialize instances of classes from other files
@@ -14,16 +15,8 @@ def main():
     chords = Chords()
     chords_in_keys = Chords_in_Keys()
     fretboard = Fretboard(notes)
+   
 
-    print(fretboard)
-
-    fretboard.print_all_notes()
-
-    fretboard.print_open_notes()
-
-    for note in notes.chromatic_scale:
-        print(f"{note:<3}: {fretboard.note_directory[note]}")
-        
     # # notes
     # print(notes['Eb4'])
     # print(notes.get_note('D#4'))
@@ -84,7 +77,25 @@ def main():
     # for degree in chords_in_keys.get_degrees():
     #     print(chords_in_keys['C', degree])
     #     print('')
+    
 
+    # print(fretboard)
+    # fretboard.print_all_notes()
+    # fretboard.print_open_notes()
+    # for note in notes.chromatic_scale:
+    #     print(f"{note:<3}: {fretboard.note_directory[note]}")
+
+    voicings = Voicings(chords, fretboard)
+
+    for quality in chords.get_qualities():
+        print(voicings[('D', quality, 'open')])
+
+    for chord_root in notes.chromatic_scale:
+        if voicings[(chord_root, 'dominant_7th','open')]: 
+            print(voicings[(chord_root, 'dominant_7th','open')])
+
+    for chord_root in notes.chromatic_scale:
+        print(voicings[(chord_root, 'major','A')])
 
 if __name__ == "__main__":
     main()

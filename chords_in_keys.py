@@ -73,16 +73,6 @@ class Chords_in_Key(Helper):
             self.chords = self.alt_chords
             self.tonic  = self.alt_tonic
 
-    # def __str__(self):
-    #     notes_str       = ', '.join([f"{note:<2}" for note in self.notes])
-    #     alt_notes_str   = ', '.join([f"{note:<2}" for note in self.alt_notes])
-    #     if self.alt_root is not None:
-    #        alt_root_str  = f"({self.alt_root:<2})"
-    #     else:
-    #        alt_root_str  = '    '
-           
-    #     return f"{self.root: <2} {alt_root_str} {self.quality:<16}: [{notes_str:<14}]   [({alt_notes_str:<14})]"
-
     def __str__(self):
         chords_for_print = ([f"{item[0]}_{item[1]}" for item in self.chords])
         chords_str = ', '.join(chords_for_print)
