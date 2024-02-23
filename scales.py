@@ -26,6 +26,10 @@ class Scale(Helper):
         return self._mode
 
     @property
+    def name(self):
+        return (self.key, self.mode)
+
+    @property
     def notes(self):
         return self._notes
     @notes.setter
@@ -122,10 +126,10 @@ class Scales(CollectionHelper):
             for mode in self.modes.keys():
                 scale_notes = self.generate_scale(key, mode)
                 current_scale = Scale(key, mode, scale_notes)
-                scale_dict_key = (f"{key}", f"{mode}")
+                scale_dict_key = (key, mode)
                 self._instances[scale_dict_key] = current_scale
                 if current_scale.alt_key is not None:
-                    scale_alt_dict_key = (f"{current_scale.alt_key}", f"{mode}")
+                    scale_alt_dict_key = (current_scale.alt_key, mode)
                     self._instances[scale_alt_dict_key] = current_scale
                     
     def get_scale(self, scale_dict_key: tuple):

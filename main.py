@@ -1,12 +1,13 @@
 
 
 # Importing classes from other files
-from notes          import Notes
-from scales         import Scales
-from chords         import Chords
-from chords_in_keys import Chords_in_Keys
-from fretboard      import Fretboard
-from voicings       import Voicings
+from notes              import Notes
+from scales             import Scales
+from chords             import Chords
+from chords_in_keys     import Chords_in_Keys
+from fretboard          import Fretboard
+from voicings           import Voicings
+from chord_progression  import ChordProgression
 
 def main():
     # Initialize instances of classes from other files
@@ -15,7 +16,7 @@ def main():
     chords = Chords()
     chords_in_keys = Chords_in_Keys()
     fretboard = Fretboard(notes)
-   
+    voicings = Voicings(chords, fretboard)
 
     # # notes
     # print(notes['Eb4'])
@@ -85,17 +86,24 @@ def main():
     # for note in notes.chromatic_scale:
     #     print(f"{note:<3}: {fretboard.note_directory[note]}")
 
-    voicings = Voicings(chords, fretboard)
+    
 
-    for quality in chords.get_qualities():
-        print(voicings[('D', quality, 'open')])
+    # for quality in chords.get_qualities():
+    #     print(voicings[('D', quality, 'open')])
 
-    for chord_root in notes.chromatic_scale:
-        if voicings[(chord_root, 'dominant_7th','open')]: 
-            print(voicings[(chord_root, 'dominant_7th','open')])
+    # for chord_root in notes.chromatic_scale:
+    #     if voicings[(chord_root, 'dominant_7th','open')]: 
+    #         print(voicings[(chord_root, 'dominant_7th','open')])
 
-    for chord_root in notes.chromatic_scale:
-        print(voicings[(chord_root, 'major','A')])
+    # for chord_root in notes.chromatic_scale:
+    #     print(voicings[(chord_root, 'major','A')])
+    random_chord_progression = ChordProgression.random(chords_in_keys, voicings)
+    print(random_chord_progression)
+
+    chord_progression = ChordProgression.from_chords_in_key(chords_in_keys['A','minor'], voicings)
+    print(chord_progression)
+
+
 
 if __name__ == "__main__":
     main()

@@ -29,6 +29,10 @@ class Chord(Helper):
         return self._quality
 
     @property
+    def name(self):
+        return (self.root, self.quality)
+
+    @property
     def notes(self):
         return self._notes
     @notes.setter
@@ -129,12 +133,12 @@ class Chords(CollectionHelper):
     def generate_chords(self):
         for root in self.chromatic_scale:    
             chord_dictionary_for_root = self.generate_chords_for_root(root)
-            for dict_key, dict_value in chord_dictionary_for_root.items():
-                current_chord = Chord(root = root, quality = dict_key, notes = dict_value)
-                chord_dict_key = (f"{root}", f"{dict_key}")
+            for chord_quality, chord_notes in chord_dictionary_for_root.items():
+                current_chord = Chord(root, chord_quality, chord_notes)
+                chord_dict_key = (root, chord_quality)
                 self._instances[chord_dict_key] = current_chord
                 if current_chord.alt_root is not None:
-                    chord_alt_dict_key = (f"{current_chord.alt_root}", f"{dict_key}")
+                    chord_alt_dict_key = (current_chord.alt_root, chord_quality)
                     self._instances[chord_alt_dict_key] = current_chord 
 
         self.qualities = list(chord_dictionary_for_root.keys())

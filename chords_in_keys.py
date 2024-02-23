@@ -27,6 +27,10 @@ class Chords_in_Key(Helper):
         return self._degree
 
     @property
+    def name(self):
+        return (self.key, self.degree)
+
+    @property
     def chords(self):
         return self._chords
     @chords.setter
@@ -120,36 +124,31 @@ class Chords_in_Keys(CollectionHelper):
         
         self.generate_all_chords_in_key()
         
-    def generate_chords_in_key(self, key: str = 'C', degree = 'major'):
-
-        chromatic_scale_in_key = self.get_chromatic_scale_in_key(key)
-
-        generated_scale = []
-        if 'major' in degree:
-            scale_formula = 'major'
-        else: 
-            scale_formula = 'minor'
-
+    def generate_chords_in_key_list(self, key: str = 'C', degree = 'major'):
+        
         i = 0
+        generated_scale = []
+        chromatic_scale_in_key = self.get_chromatic_scale_in_key(key)
+        scale_formula = 'major' if 'major' in degree else 'minor'
         for step in self.modes[scale_formula]:
             generated_scale.append(chromatic_scale_in_key[i]) 
             i = i + step
 
-        chords_in_key = []
+        chords_in_key_list = []
         for index, note in enumerate(generated_scale):
-            chords_in_key.append((note, self.degrees[degree][index]))
+            chords_in_key_list.append((note, self.degrees[degree][index]))
 
-        return chords_in_key
+        return chords_in_key_list
 
     def generate_all_chords_in_key(self):
         for key in self.chromatic_scale:
             for degree in self.degrees.keys():
-                chords_in_key = self.generate_chords_in_key(key, degree)
-                current_chords_in_key = Chords_in_Key(key = key, degree = degree, chords = chords_in_key)
-                chords_in_key_dict_key = (f"{key}", f"{degree}")
+                chords_in_key_list = self.generate_chords_in_key_list(key, degree)
+                current_chords_in_key = Chords_in_Key(key, degree, chords_in_key_list)
+                chords_in_key_dict_key = (key, degree)
                 self._instances[chords_in_key_dict_key] = current_chords_in_key
                 if current_chords_in_key.alt_key is not None:
-                    chords_in_key_alt_dict_key = (f"{current_chords_in_key.alt_key}", f"{degree}")
+                    chords_in_key_alt_dict_key = (current_chords_in_key.alt_key, degree)
                     self._instances[chords_in_key_alt_dict_key] = current_chords_in_key
 
     def get_degrees(self):

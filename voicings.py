@@ -9,6 +9,7 @@ class Voicing:
 
         self.chromatic_scale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
+        self._name              = None
         self.chord              = chord
         self.fretboard          = fretboard
         self.base_shape         = base_shape
@@ -22,6 +23,14 @@ class Voicing:
         self.note_list          = []
         
         self.voice_chord()
+
+    @property
+    def name(self):
+        return self._name
+    @name.setter
+    def name(self, value: tuple):
+        if self._name == None:
+            self._name = value
 
     @property
     def shape(self):
@@ -40,7 +49,8 @@ class Voicing:
             self.voice_chord_by_shape()
 
         if len(self.indices_by_string) > 0:
-            frets = [value[0][1] for value in self.indices_by_string.values()]
+            # note_index[0][1] pulls out the 2nd item in the tuple, which is the fret
+            frets = [note_index[0][1] for note_index in self.indices_by_string.values()]
             self.low_fret   = min(frets)
             self.high_fret  = max(frets)
 
@@ -82,7 +92,7 @@ class Voicing:
         # at this point redundant_notes is a list of lists, where the sublists contain notes that can be removed. they can 
         # be removed for 2 reasons: they appear on overloaded strings, and the base note appears elsewhere in the chord
 
-        # step 8: remove redudant notes on each string. when there are multiple options, remove the note on the higher fret
+        # step 8: remove redundant notes on each string. when there are multiple options, remove the note on the higher fret
         for redundant_notes_by_string in redundant_notes:
             note_index_to_remove = max(redundant_notes_by_string, key = lambda x : x[1])
             for key, value in self.indices_by_note.items():
@@ -100,15 +110,9 @@ class Voicing:
 
     def voice_chord_by_shape(self):
 
-        # takes  {0: [(0, 0)], 1: [(1, 1)], 2: [(2, 0)], 3: [(3, 2)], 4: [(4, 3)]} as argument   
-
         root_note_string = max(self.base_shape, key=lambda string: self.base_shape.get(string))
-        #max(self.base_shape, key=lambda k: self.base_shape.get(k))
-        #print(f"root_note_string: {root_note_string}")
         root_note_string, root_note_fret = self.base_shape[root_note_string][0]
-        #print(f"root_note_string, root_note_fret: {root_note_string}, {root_note_fret}")
         base_shape_root_note = self.fretboard.fretboard[root_note_string][root_note_fret]
-        #print(f"base_root_note: {base_shape_root_note}")
 
         chromatic_scale_in_key = self.get_chromatic_scale_in_key(base_shape_root_note.base)
         base_shape_to_new_root_delta = chromatic_scale_in_key.index(self.chord.root)
@@ -138,7 +142,7 @@ class Voicing:
 
     def __str__(self):
         print_string = [f'{self.chord.root}_{self.chord.quality}: \n\n']
-        
+
         for string in self.sub_board:
             open_fret = True
             for note in string:
@@ -178,27 +182,37 @@ class Voicings(CollectionHelper):
         for root in self.caged_notes + ['B']:
             for quality in self.basic_qualities:
                 voicing = Voicing(self.chords[(root, quality)], self.fretboard)
-                chord_voicing_dict_key = (f"{root}", f"{quality}", 'open')
-                self._instances[chord_voicing_dict_key] = voicing
+                chord_voice_dict_key = (root, quality, 'open')
+                voicing.name = chord_voice_dict_key
+                self._instances[chord_voice_dict_key] = voicing
 
     def generate_voicings_based_on_shape(self):
         for root in self.chromatic_scale:
             for base_shape_root in self.caged_notes:
                 for quality in self.basic_qualities:
-                    if root != base_shape_root:
+                    # avoid G and C_minor shapes
+                    if base_shape_root not in [root, 'G'] and (base_shape_root, quality) != ('C', 'minor'):
                         chord_to_voice = self.chords[(root, quality)]
                         base_shape = self._instances[(base_shape_root, quality, 'open')].shape
                         voicing = Voicing(chord_to_voice, self.fretboard, base_shape)
-                        chord_voice_dict_key = (f"{root}", f"{quality}", f"{base_shape_root}")
+                        chord_voice_dict_key = (root, quality, base_shape_root)
+                        voicing.name = chord_voice_dict_key
                         self._instances[chord_voice_dict_key] = voicing
 
-    def filter_dict_by_chord(self, chord):
+    def get_voicing_instances_for_chord(self, chord):
         result = {}
         for chord_voice_key, chord_voicing in self._instances.items():
-            if chord_voice_key == chord:
+            if chord_voicing.chord.name == chord:
                 result[chord_voice_key] = chord_voicing
         return result
     
+    def get_list_of_voicing_names_for_chord(self, chord):
+        voicing_name_list = []
+        voicing_name_list = list(self.get_voicing_instances_for_chord(chord).keys())
+        voicing_name_list.sort(key = lambda voicing_name: self[voicing_name].low_fret)
+        return voicing_name_list
+
+
     def get_chord_voice(self, chord_root, chord_quality, shape: str = 'E'):
         return self[chord_root, chord_quality, shape]
     
