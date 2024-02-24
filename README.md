@@ -509,3 +509,26 @@ D3    |   --        --        --        --        --        --        --        
 
 </details>
 
+<details>
+<summary>Generate strumming patterns</summary>
+
+
+Print a strumming pattern with quarter, eigth, or sixteenth notes and specific beats per minute.
+Starting out with only (4,4) time signature support
+
+```
+random_strumming_pattern = StrummingPattern()
+print(random_strumming_pattern)
+
+strumming_pattern = StrummingPattern(16, 120)
+print(strumming_pattern)
+```
+Result:
+```
+strumming pattern: [1, 0, 1, 0, 1, 0, 1, 0]
+strum length list: [2, 2, 2, 2]
+
+strumming pattern: [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0]
+strum length list: [2, 2, 4, 2, 1, 1, 1, 1, 2]
+```
+</details>

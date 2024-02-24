@@ -110,7 +110,6 @@ class ChordProgression:
                 chord_voicing = self.voicings[chord_voicing_name]
                 self.voiced_chord_progression.append(chord_voicing)
 
-
     def __str__(self):
         print_string = '\n'
         chord_list = []

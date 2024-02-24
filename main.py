@@ -8,15 +8,18 @@ from chords_in_keys     import Chords_in_Keys
 from fretboard          import Fretboard
 from voicings           import Voicings
 from chord_progression  import ChordProgression
+from strumming_pattern  import StrummingPattern
 
 def main():
     # Initialize instances of classes from other files
-    notes = Notes()
-    scales = Scales()
-    chords = Chords()
-    chords_in_keys = Chords_in_Keys()
-    fretboard = Fretboard(notes)
-    voicings = Voicings(chords, fretboard)
+    notes                       = Notes()
+    scales                      = Scales()
+    chords                      = Chords()
+    chords_in_keys              = Chords_in_Keys()
+    fretboard                   = Fretboard(notes)
+    voicings                    = Voicings(chords, fretboard)
+    random_chord_progression    = ChordProgression.random(chords_in_keys, voicings)
+
 
     # # notes
     # print(notes['Eb4'])
@@ -79,7 +82,7 @@ def main():
     #     print(chords_in_keys['C', degree])
     #     print('')
     
-
+    # # fretboard
     # print(fretboard)
     # fretboard.print_all_notes()
     # fretboard.print_open_notes()
@@ -87,7 +90,7 @@ def main():
     #     print(f"{note:<3}: {fretboard.note_directory[note]}")
 
     
-
+    # # chord_voicing
     # for quality in chords.get_qualities():
     #     print(voicings[('D', quality, 'open')])
 
@@ -97,12 +100,19 @@ def main():
 
     # for chord_root in notes.chromatic_scale:
     #     print(voicings[(chord_root, 'major','A')])
-    random_chord_progression = ChordProgression.random(chords_in_keys, voicings)
-    print(random_chord_progression)
 
-    chord_progression = ChordProgression.from_chords_in_key(chords_in_keys['A','minor'], voicings)
-    print(chord_progression)
+    # # chord_progression
+    # print(random_chord_progression)
 
+    # chord_progression = ChordProgression.from_chords_in_key(chords_in_keys['A','minor'], voicings)
+    # print(chord_progression)
+
+    # strumming_pattern
+    random_strumming_pattern = StrummingPattern()
+    print(random_strumming_pattern)
+
+    strumming_pattern = StrummingPattern(16, 120)
+    print(strumming_pattern)
 
 
 if __name__ == "__main__":
