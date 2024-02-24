@@ -509,6 +509,8 @@ D3    |   --        --        --        --        --        --        --        
 
 </details>
 
+## Strumming Pattern Class
+
 <details>
 <summary>Generate strumming patterns</summary>
 
