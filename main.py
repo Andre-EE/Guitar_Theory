@@ -9,6 +9,7 @@ from fretboard          import Fretboard
 from voicings           import Voicings
 from chord_progression  import ChordProgression
 from strumming_pattern  import StrummingPattern
+from audio_generator    import AudioGenerator
 
 def main():
     # Initialize instances of classes from other files
@@ -19,7 +20,10 @@ def main():
     fretboard                   = Fretboard(notes)
     voicings                    = Voicings(chords, fretboard)
     random_chord_progression    = ChordProgression.random(chords_in_keys, voicings)
+    strumming_pattern           = StrummingPattern(8, 120)
 
+    audio_generator             = AudioGenerator(random_chord_progression, strumming_pattern)
+    audio_generator.play_audio()
 
     # # notes
     # print(notes['Eb4'])
@@ -107,13 +111,16 @@ def main():
     # chord_progression = ChordProgression.from_chords_in_key(chords_in_keys['A','minor'], voicings)
     # print(chord_progression)
 
-    # strumming_pattern
-    random_strumming_pattern = StrummingPattern()
-    print(random_strumming_pattern)
+    # # strumming_pattern
+    # random_strumming_pattern = StrummingPattern()
+    # print(random_strumming_pattern)
 
-    strumming_pattern = StrummingPattern(16, 120)
-    print(strumming_pattern)
+    # strumming_pattern = StrummingPattern(16, 120)
+    # print(strumming_pattern)
+
+    # # audio_generator
 
 
+     
 if __name__ == "__main__":
     main()

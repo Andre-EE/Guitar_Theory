@@ -120,7 +120,6 @@ class Voicing:
         for key, note_index in self.base_shape.items():
             note_string, note_fret = note_index[0]
             new_note_index = (note_string, note_fret + base_shape_to_new_root_delta)
-            self.note_list.append(new_note_index)
             self.indices_by_string[key] = [new_note_index]
         
         for key, note_index in self.indices_by_string.items():
@@ -211,10 +210,9 @@ class Voicings(CollectionHelper):
         voicing_name_list = list(self.get_voicing_instances_for_chord(chord).keys())
         voicing_name_list.sort(key = lambda voicing_name: self[voicing_name].low_fret)
         return voicing_name_list
-
-
+    
     def get_chord_voice(self, chord_root, chord_quality, shape: str = 'E'):
-        return self[chord_root, chord_quality, shape]
+        return self[(chord_root, chord_quality, shape)]
     
     def __getitem__(self, dict_key: tuple):
         item = self._instances.get(dict_key, None)

@@ -534,3 +534,14 @@ strumming pattern: [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0]
 strum length list: [2, 2, 4, 2, 1, 1, 1, 1, 2]
 ```
 </details>
+
+## Audio Generator Class
+
+<details>
+<summary>Generate and play a wav file from the chord progression and strumming pattern/summary>
+
+```
+audio_generator = AudioGenerator(random_chord_progression, strumming_pattern)
+audio_generator.play_audio()
+```
+</details>
