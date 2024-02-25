@@ -538,10 +538,11 @@ strum length list: [2, 2, 4, 2, 1, 1, 1, 1, 2]
 ## Audio Generator Class
 
 <details>
-<summary>Generate and play a wav file from the chord progression and strumming pattern/summary>
+<summary>Generate and play a wav file from the chord progression and strumming pattern</summary>
 
 ```
 audio_generator = AudioGenerator(random_chord_progression, strumming_pattern)
 audio_generator.play_audio()
 ```
+
 </details>
