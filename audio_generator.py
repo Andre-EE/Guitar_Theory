@@ -30,7 +30,7 @@ class AudioGenerator:
 
         for chord_voicing in self.chord_progression.voiced_chord_progression:
             self.wave_list[chord_voicing.name] = []
-            print(chord_voicing)
+            #print(chord_voicing)
             for length in range(1,10): #length of strum sound depending on number of pauses that follow
                 chord_waves = []
                 for note in chord_voicing.note_list:
