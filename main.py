@@ -22,8 +22,12 @@ def main():
     random_chord_progression    = ChordProgression.random(chords_in_keys, voicings)
     strumming_pattern           = StrummingPattern(8, 120)
 
-    audio_generator             = AudioGenerator(random_chord_progression, strumming_pattern)
-    audio_generator.play_audio()
+    print(random_chord_progression)
+
+    #audio_generator             = AudioGenerator(random_chord_progression, strumming_pattern)
+    #audio_generator.play_audio()
+
+    #print(random_chord_progression)
 
     # # notes
     # print(notes['Eb4'])
