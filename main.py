@@ -24,12 +24,11 @@ def main():
 
     print(chord_progression)
     audio_generator.play_audio()
-
-    #random_chord_progression    = ChordProgression.random(chords_in_keys, voicings)
+    
     #print(random_chord_progression)
     #audio_generator             = AudioGenerator(random_chord_progression, strumming_pattern)
     #audio_generator.play_audio()
-
+    
     # # notes
     # print(notes['Eb4'])
     # print(notes.get_note('D#4'))
