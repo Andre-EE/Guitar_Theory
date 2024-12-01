@@ -5,7 +5,7 @@ from chords_in_keys import Chords_in_Key, Chords_in_Keys
 from voicings       import Voicings
 
 class ChordProgression:
-    def __init__(self, chords_in_key: Chords_in_Key, voicings: Voicings):
+    def __init__(self, chords_in_key: Chords_in_Key, voicings: Voicings, voicing_choice = None):
         
         self.chords_in_key              = chords_in_key
         self.voicings                   = voicings
@@ -13,7 +13,7 @@ class ChordProgression:
         self.base_chord_progression     = []
         self.voiced_chord_progression   = []
         self.gen_chord_progression()
-        self.gen_voiced_chord_progression()
+        self.gen_voiced_chord_progression(voicing_choice)
 
     @classmethod
     def random(cls, chords_in_keys: Chords_in_Keys, voicings: Voicings):
@@ -24,8 +24,8 @@ class ChordProgression:
         return cls(chords_in_key, voicings)
 
     @classmethod
-    def from_chords_in_key(cls, chords_in_key: Chords_in_Key, voicings: Voicings):
-        return cls(chords_in_key, voicings)
+    def from_chords_in_key(cls, chords_in_key: Chords_in_Key, voicings: Voicings, voicing_choice = None):
+        return cls(chords_in_key, voicings, voicing_choice)
 
     def gen_chord_progression(self):
         i = 0
@@ -95,12 +95,15 @@ class ChordProgression:
             probablity  = [ 0.50,   0.50]
             return random.choices(options, probablity)[0]
     
-    def gen_voiced_chord_progression(self):
+    def gen_voiced_chord_progression(self, voicing_choice):
 
         for chord_order, chord in enumerate(self.base_chord_progression):
             chord_voicing_names = self.voicings.get_list_of_voicing_names_for_chord(chord)
             if chord_order == 0:
-                random_index = random.choice(range(len(chord_voicing_names)))
+                if voicing_choice == 'open':
+                    random_index = 0
+                else:
+                    random_index = random.choice(range(len(chord_voicing_names)))
                 first_chord_voicing = self.voicings[chord_voicing_names[random_index]]
                 self.voiced_chord_progression.append(first_chord_voicing)
             else:

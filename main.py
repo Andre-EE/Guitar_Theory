@@ -1,5 +1,4 @@
 
-
 # Importing classes from other files
 from notes              import Notes
 from scales             import Scales
@@ -19,16 +18,17 @@ def main():
     chords_in_keys              = Chords_in_Keys()
     fretboard                   = Fretboard(notes)
     voicings                    = Voicings(chords, fretboard)
-    random_chord_progression    = ChordProgression.random(chords_in_keys, voicings)
+    chord_progression           = ChordProgression.from_chords_in_key(chords_in_keys['A','minor'], voicings, 'open')
     strumming_pattern           = StrummingPattern(8, 120)
+    audio_generator             = AudioGenerator(chord_progression, strumming_pattern, 'ks')
 
-    print(random_chord_progression)
-
+    print(chord_progression)
+    audio_generator.play_audio()
+    
+    #print(random_chord_progression)
     #audio_generator             = AudioGenerator(random_chord_progression, strumming_pattern)
     #audio_generator.play_audio()
-
-    #print(random_chord_progression)
-
+    
     # # notes
     # print(notes['Eb4'])
     # print(notes.get_note('D#4'))
